@@ -75,7 +75,8 @@ extension ViewController: FooterDelegate{
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 0.00000001
+            //최소값 지정 .. Float.leastNormalMagnitude는 음수 취급해서 error 발생
+            return 0.00000000000001
         }
         
         return 100
@@ -140,12 +141,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     //section에 따른 cell 지정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("now on \(indexPath.row) row")
         if indexPath.section == 0 { //doctor
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DoctorCell") else {
                     return UITableViewCell()
             }
             
             cell.textLabel?.text = doctersWords[indexPath.row]
+            setCellBackgroundColor(row: indexPath.row, cell: cell)
             return cell
         }
         else{  //monster
@@ -156,7 +159,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let monster = monsters[indexPath.row]
             cell.monsterImageView.image = monster.imageSrc
             cell.nameLabel.text = monster.name
+            setCellBackgroundColor(row: indexPath.row, cell: cell)
             return cell
+        }
+    }
+    
+    private func setCellBackgroundColor(row: Int, cell: UITableViewCell){
+        if row == 1 {
+            cell.backgroundColor = .red
+        }
+        else{
+            cell.backgroundColor = .white
         }
     }
     

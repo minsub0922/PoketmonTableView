@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="FooterView" id="GFz-2O-sKr" customClass="FooterView" customModule="UITableViewExample" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="386" height="146"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vjt-fy-i2O">
+                    <rect key="frame" x="0.0" y="0.0" width="386" height="112"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="doctorAction" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elc-js-m14">
+                            <rect key="frame" x="0.0" y="41" width="128.5" height="30"/>
+                            <state key="normal" title="오박사의 말씀"/>
+                            <connections>
+                                <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="G0J-7l-wq7"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="metamongAction" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XbN-Nv-0yR">
+                            <rect key="frame" x="128.5" y="41" width="129" height="30"/>
+                            <state key="normal" title="메타몽 소환!"/>
+                            <connections>
+                                <action selector="buttonAction:" destination="GFz-2O-sKr" eventType="touchUpInside" id="Bq4-ru-GsU"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="turtleAction" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KGI-RF-Bgs">
+                            <rect key="frame" x="257.5" y="41" width="128.5" height="30"/>
+                            <state key="normal" title="꼬부ㄱ..몽 소환!"/>
+                            <connections>
+                                <action selector="buttonAction:" destination="GFz-2O-sKr" eventType="touchUpInside" id="9nH-aT-4kw"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vjt-fy-i2O" firstAttribute="leading" secondItem="ubN-od-OCN" secondAttribute="leading" id="8TL-Pb-xdu"/>
+                <constraint firstItem="vjt-fy-i2O" firstAttribute="bottom" secondItem="ubN-od-OCN" secondAttribute="bottom" id="UC7-sU-8d8"/>
+                <constraint firstItem="vjt-fy-i2O" firstAttribute="top" secondItem="GFz-2O-sKr" secondAttribute="top" id="UI3-W8-Gqt"/>
+                <constraint firstItem="ubN-od-OCN" firstAttribute="trailing" secondItem="vjt-fy-i2O" secondAttribute="trailing" id="m1L-sP-su5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="ubN-od-OCN"/>
+            <point key="canvasLocation" x="-343.47826086956525" y="-419.86607142857139"/>
+        </view>
+    </objects>
+</document>

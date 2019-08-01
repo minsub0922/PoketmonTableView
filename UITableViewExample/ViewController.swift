@@ -20,19 +20,27 @@ class ViewController: UIViewController{
     private let turtleImageSrc = UIImage(named: "turtle")
     private let doctorImageSrc = UIImage(named: "doctor")
     private let MonsterCellString = String(describing: MonsterCell.self)
+    private let FooterViewString = String(describing: FooterView.self)
     
     //3개의 버튼에 대한 Action
     @IBAction func buttonAction(_ sender: UIButton) {
+        var index: Int?
+        
         switch sender.restorationIdentifier {
             case "addMetamong":
                 monsters.append(Monster(imageSrc: metamongImageSrc!, name: "메타몽"))
-                tableView.reloadSections(IndexSet(1...1), with: .automatic)
+                index = 1
             case "addTurtle":
                 monsters.append(Monster(imageSrc: turtleImageSrc!, name: "꼬부ㄱ..몽"))
-                tableView.reloadSections(IndexSet(1...1), with: .automatic)
+                index = 1
             default://doctor
                 doctersWords.append(getDoctorsWord())
-                tableView.reloadSections(IndexSet(0...0), with: .automatic)
+                index = 0
+        }
+        
+        if let idx = index as Int?{
+            tableView.reloadSections(IndexSet(idx...idx), with: .automatic)
+            scrollToUpdatedRow(lastSection: idx, lastRow:  tableView.numberOfRows(inSection: idx)-1)
         }
     }
     //오박사님의 말씀
@@ -52,8 +60,58 @@ class ViewController: UIViewController{
         //UITableViewDelegate, UITalbeViewDataSource 등록
         tableView.delegate = self
         tableView.dataSource = self
-        //외부 Cell 등록 -> 이 작업이 있어야 xib 파일을 가져다 쓸 수 있습니다.
+        //외부 MonsterCell 등록 -> 이 작업이 있어야 xib 파일을 가져다 쓸 수 있습니다.
         tableView.register(UINib(nibName: MonsterCellString, bundle: nil), forCellReuseIdentifier: MonsterCellString)
+        //외부 FooterView 등록 -> 이 작업이 있어야 xib 파일을 가져다 쓸 수 있습니다.
+        tableView.register(UINib(nibName: FooterViewString, bundle: nil), forHeaderFooterViewReuseIdentifier: FooterViewString)
+    }
+}
+
+extension ViewController: FooterDelegate{
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0.00000001
+        }
+        
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0 {
+            return UIView()
+        }
+        
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FooterViewString) as? FooterView else {return UIView()}
+        
+        footerView.delegate = self
+        footerView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        return footerView
+    }
+    
+    func buttonAction(restorationId: String) {
+        var index: Int?
+        
+        switch restorationId {
+        case "metamongAction":
+            monsters.append(Monster(imageSrc: metamongImageSrc!, name: "메타몽"))
+            index = 1
+        case "turtleAction":
+            monsters.append(Monster(imageSrc: turtleImageSrc!, name: "꼬부ㄱ..몽"))
+            index = 1
+        default://doctor
+            doctersWords.append(getDoctorsWord())
+            index = 0
+        }
+        
+        if let idx = index as Int?{
+            tableView.reloadSections(IndexSet(idx...idx), with: .automatic)
+            scrollToUpdatedRow(lastSection: idx, lastRow:  tableView.numberOfRows(inSection: idx)-1)
+        }
     }
 }
 
@@ -99,6 +157,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.monsterImageView.image = monster.imageSrc
             cell.nameLabel.text = monster.name
             return cell
+        }
+    }
+    
+    func scrollToUpdatedRow(lastSection: Int, lastRow: Int){
+        DispatchQueue.main.async {
+            self.tableView.scrollToRow(at: IndexPath(row: lastRow, section: lastSection), at: .bottom, animated: true)
         }
     }
 }
